@@ -21,6 +21,7 @@ jar {
 //mainClassName = 'App'
 
 test {
-    testLogging.showStandardStreams = true
-    testLogging.exceptionFormat = 'full'
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }

@@ -12,6 +12,6 @@ public class AppTest {
 
     @Test
     public void adding_two_numbers_does_sum() {
-        assertTrue(3 == app.sum(1,1));
+        assertTrue(2 == app.sum(1,1));
     }
 }
