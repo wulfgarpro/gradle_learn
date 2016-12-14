@@ -15,3 +15,12 @@ jar {
     baseName = 'App.jar'
     version = '1.0'
 }
+
+//apply plugin: 'application'
+
+//mainClassName = 'App'
+
+test {
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = 'full'
+}
