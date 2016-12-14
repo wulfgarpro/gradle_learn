@@ -1,0 +1,93 @@
+// doLast runs the code after task has been created; code outside doLast is executed during task creation, that is, before execution
+/*task hello {
+   doLast {
+      println 'tutorialspoint'
+   }
+}*/
+
+// The above can be done with the shortcut (<<) to the doLast statement
+task hello << {
+        println 'hello world from Gradle'
+}
+
+task upper << {
+   String expString = 'TUTORIALS point'
+   println "Original: " + expString
+   println "Upper case: " + expString.toUpperCase()
+}
+
+task count << {
+    4.times { 
+        print "$it " 
+    }
+}
+
+// Example of using project properties; each task is a property of a project using the task name as the project property
+println hello.name
+println project.hello.name
+
+// There is also a task collection you can access properties from
+println tasks.hello.name
+println tasks['hello'].name
+
+// Example of using paths to scope tasks in projects
+project(':projectA') {
+    task hello
+}
+
+println tasks.getByPath(':hello').path
+println tasks.getByPath('projectA:hello').path
+println tasks.getByPath(':projectA:hello').path
+
+// Tasks can have inter-dependencies
+task taskX << {
+   println 'taskX'
+}
+task taskY(dependsOn: 'taskX') << {
+   println "taskY"
+}
+
+// Another way to define task dependencies
+taskY.dependsOn taskX
+
+// OR, even better is using closures for more complicated dependency structures
+taskX.dependsOn {
+   tasks.findAll { 
+      task -> task.name.startsWith('lib') 
+   }
+}
+task lib1 << {
+   println 'lib1'
+}
+task lib2 << {
+   println 'lib2'
+}
+task notALib << {
+   println 'notALib'
+}
+
+// You can add descriptions to tasks which will be displayed when you run gradle tasks
+task copy(type: Copy) {
+   description 'Copies the resource directory to the target directory.'
+   from 'resources'
+   into 'target'
+   include('**/*.txt', '**/*.xml', '**/*.properties')
+   println('Copy has been executed')
+}
+
+// Using closure onlyIf to execute or skip task depending on true/false predicate
+task eclipse << {
+   println 'Hello Eclipse'
+}
+
+// #1st approach - closure returning true, if the task should be executed, false if not.
+eclipse.onlyIf {
+   project.hasProperty('usingEclipse')
+}
+
+// #2nd approach - alternatively throw an StopExecutionException() like this
+eclipse.doFirst {
+   if(!usingEclipse) {
+      throw new StopExecutionException()
+   }
+}

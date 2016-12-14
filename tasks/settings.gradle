@@ -1,0 +1,2 @@
+// a project declarative to force project instead of naming parent directory as project name
+include ':projectA'
