@@ -1,3 +1,9 @@
+/*
+Gradle has different phases, when working with tasks. First of all, there is a configuration phase, where the code, which is specified directly in a task's closure, is executed. The configuration block is executed for every available task and not only for those tasks which are later actually executed.
+
+After the configuration phase, the execution phase runs the code inside the doFirst or doLast closures of those tasks, which are actually executed.
+*/
+
 // doLast runs the code after task has been created; code outside doLast is executed during task creation, that is, before execution
 /*task hello {
    doLast {
