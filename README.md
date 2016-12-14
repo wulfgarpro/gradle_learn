@@ -1,2 +1,2 @@
 # gradle_learn
-A place to put some gradle scripts while learning.
+A place to put some gradle scripts while learning
